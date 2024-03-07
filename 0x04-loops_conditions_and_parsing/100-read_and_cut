@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# this script prints contents of etc/passwd file, limited
+# username, user id and home directory.
+
+file="/etc/passwd"
+# value of Internal Field Separator, IFS is not set to any value.
+# So lines read are not split into constituent parts
+# read each line and store it in var, string
+# r for specifying that we do not want / to escape characters
+while IFS= read -r string
+do
+	echo "$string" | cut -d":" -f1,3,6
+done < "$file"

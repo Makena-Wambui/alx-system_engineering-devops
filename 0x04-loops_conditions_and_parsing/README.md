@@ -28,3 +28,7 @@ Sort command sorts output
 uniq -c counts the number of occurences of each unique line
 sort -nr sort the output in reverse numerical order so lines with the most occurences are at the top.
 
+To display the contents of etc/passwd using read and cut:
+we use a while loop to read each line from the file.
+Specify space as delimiter in IFS
+Use cut and options -d and f, delimiter ':' and extract fields 1, 3, 6
