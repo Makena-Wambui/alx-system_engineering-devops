@@ -20,3 +20,11 @@ It is a unique string of letters and/or numbers that identifies a device like a 
 When you access a website, their IP address can be logged. and used to identify their general geographical location.
 This is useful as it helps to know where your website's traffic is coming from, among other things
 Now write a bash script that will display visitor IPs and their HTTPS STATUS CODES from the apache log file.
+
+After parsing the log file, we can sort the data toget a better idea of what is happening.
+if a particular ip address accessed a website five times, and each time received a https status code of 200,
+there would be 5 occurences of that specific event.
+Sort command sorts output
+uniq -c counts the number of occurences of each unique line
+sort -nr sort the output in reverse numerical order so lines with the most occurences are at the top.
+

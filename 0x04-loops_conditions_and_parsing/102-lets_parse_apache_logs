@@ -7,4 +7,4 @@ logfile="apache-access.log"
 # $9 extracts the status code
 # awk used to parse the log file
 
-awk '{print $1, $9}' $logfile
+awk -F' ' '{print $1, $9}' $logfile

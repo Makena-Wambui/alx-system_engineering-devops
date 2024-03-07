@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# this script displays the number of times a certain event, ie a particular https status code occured for a particular visitor IP
+
+logfile="apache-access.log"
+
+awk '{print $1, $9}' $logfile | sort | uniq -c | sort -nr
