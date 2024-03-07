@@ -6,7 +6,7 @@
 x=0
 
 #use comparison operator lt
-while [ $x -lt 10 ]; do
+while ((x < 10)); do
 	echo "Best School"
 	((x++))
 done
