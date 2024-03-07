@@ -8,7 +8,7 @@ do
 	echo "Best School"
 	if ((x == 9))
 	then
-	echo "Hi"
+		echo "Hi"
 	fi
 	((x++))
 done

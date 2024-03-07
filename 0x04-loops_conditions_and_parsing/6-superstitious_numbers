@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# this script displays numbers from 1 to 20 and
+#+ displays 4 and then bad luck from China for the 4th loop iteration
+#+ displays 9 and then bad luck from Japan for the 9th loop iteration
+#+ displays 17 and then bad luck from Italy for the 17th loop iteration
+# we use ;; to close the current entry in the case statement
+x=1
+while ((x <= 20))
+do
+	# display the number
+	echo "$x"
+	# check if current iteration is 4, 9, 17
+	case $x in
+		4) echo "bad luck from China";;
+		9) echo "bad luck from Japan";;
+		17) echo "bad luck from Italy";;
+	# esac ends the case statement
+	esac
+	# increment x
+	((x++))
+done
