@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# this scripts prints "Best School" ten times using until
+
+# commands are executed as long as test does not succeed
+
+x=1
+until ((x > 10))
+do 
+	echo "Best School";
+	((x++))
+done
