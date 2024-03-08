@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# this script displays all currently running processes, all users or owners of those processes, includes those processes that do not have
+# a controlling teminal and must include process hierarchy.
+# a - all processes for all users
+# u - owners of those processes
+# x - include those without a controlling terminal
+# f - full format listing, including process hierarchy
+
+ps axuf
