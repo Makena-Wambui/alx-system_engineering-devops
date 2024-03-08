@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# This script will use the command in script 1 and grep to display the processes that contain the word bash plus their PIDS
+# shellcheck disable=SC2009
+ps auxf | grep "bash"
+
+
