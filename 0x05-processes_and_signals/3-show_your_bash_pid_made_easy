@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# This script shows how to easily use pgrep for search operations
+
+pgrep -l "bash"
