@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# this script kills the 7-highlander process using pkill
+
+# use kill -9 to kill processes that dont respond to normal kill signals
+# will send SIGKILL signal, which will cause process to quit immediately
+# and does not perform any cleanup operations.
+
+pgrep -f 7-highlander | xargs kill -9
