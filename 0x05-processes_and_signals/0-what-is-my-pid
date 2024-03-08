@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# this script prints its own PID
+# the special var, $$ contains the PID of the current shell process.
+echo "$$"
