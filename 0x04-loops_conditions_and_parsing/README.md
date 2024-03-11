@@ -1,4 +1,4 @@
-pache is one of the most popular web servers in the world
+Apache is one of the most popular web servers in the world
 It serves 50% of all active websites.
 You have to master the art of parsing log files.
 Log file- a file that records events from certain software and OSs

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# how to read a file line by line using while and read
+
+file="/etc/passwd"
+while IFS= read -r line
+do
+	echo "$line"
+done < "$file"
