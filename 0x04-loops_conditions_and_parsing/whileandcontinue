@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# demonstrate how to use continue statement to exit
+# the current iteration of a loop and pass program control to
+# the next iteration of the loop
+
+i=0
+while [ $i -lt 10 ]
+do
+	((i++))
+	if ((i == 6))
+	then
+		continue
+	fi
+	echo Number: "$i"
+done
+echo All Done
