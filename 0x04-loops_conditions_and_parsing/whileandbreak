@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# demonstrate use of break statement
+# terminates the loop when a certain condition is met.
+
+i=0
+while [ $i -le 20 ]
+do
+	echo Number: $i
+	((i++))
+
+	if ((i == 15))
+	then
+		break
+	fi
+done
+echo All Done
