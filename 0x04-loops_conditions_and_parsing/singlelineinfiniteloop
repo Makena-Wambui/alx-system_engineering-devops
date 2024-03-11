@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# single line while loop
+
+while true; do echo Infinite Loop!; sleep 3; done 

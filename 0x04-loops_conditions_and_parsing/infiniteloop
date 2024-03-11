@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# use of : to create an infinite while loop
+
+while :
+do
+	echo Press SIGINT to quit
+	sleep 5
+done

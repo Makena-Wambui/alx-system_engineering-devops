@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Demonstrate basic while loop
+
+i=0
+while [ $i -le 10 ]
+do
+	echo Number: $i
+	((i++))
+done
