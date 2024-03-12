@@ -29,4 +29,10 @@ Character ranges use square brackets with dash(-)
 \W non word character
 
 
-
+Quantifiers/ Curly Braces Notation
+w{} w exactly 3 times
+a{1, 3} a no more than three times and no less than once
+Can be used with any character or metacharacter
+[w, x, y]{5}- any of these characters appearing  5 times
+.{2, 6} -any character that appears at least twice and at most 6 times
+hb{0,1}tn -> h, b appears 0 and at most once, t, n
