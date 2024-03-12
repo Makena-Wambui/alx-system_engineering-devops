@@ -36,3 +36,10 @@ Can be used with any character or metacharacter
 [w, x, y]{5}- any of these characters appearing  5 times
 .{2, 6} -any character that appears at least twice and at most 6 times
 hb{0,1}tn -> h, b appears 0 and at most once, t, n
+
+Kleene plus: one or more of the characters it follows
+Kleene star: 0 or more of the characters it follows
+
+n+ : 1 or more ns
+[abc]* 0 or more of a, or b or c
+
