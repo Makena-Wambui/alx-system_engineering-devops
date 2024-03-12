@@ -43,3 +43,12 @@ Kleene star: 0 or more of the characters it follows
 n+ : 1 or more ns
 [abc]* 0 or more of a, or b or c
 
+? METACHARACTER
+----------------
+Denotes optionality
+Match either 0 or 1 of the preceding character or group
+ab?c = abc, ac because b is optional
+Escape it \? if you want it to match a normal ? in string
+
+^n -match strings that start with n
+n$ - those that end with n
