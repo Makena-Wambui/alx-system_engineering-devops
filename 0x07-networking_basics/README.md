@@ -9,3 +9,5 @@ Password (to) | Presentation Layer
 Anyone | Application Layer
 
 LAN, WAN, INTERNET
+
+MAC AND IP ADDRESSES
