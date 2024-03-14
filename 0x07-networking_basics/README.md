@@ -7,3 +7,5 @@ Tell (the) | Transport Layer
 Secret | Session Layer
 Password (to) | Presentation Layer
 Anyone | Application Layer
+
+LAN, WAN, INTERNET
