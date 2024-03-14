@@ -9,5 +9,5 @@ Because of the first priority that this file is given, we can use it to add to w
 or to override IP Addresses that the DNS Servers can provide.
 
 Always have a backup copy coz mistakes can lead to problems with network access, in which case you can always restore it.
-
+I had fun testing nc on two consoles.
 
