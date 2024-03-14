@@ -11,3 +11,5 @@ Anyone | Application Layer
 LAN, WAN, INTERNET
 
 MAC AND IP ADDRESSES
+
+TCP, UDP
