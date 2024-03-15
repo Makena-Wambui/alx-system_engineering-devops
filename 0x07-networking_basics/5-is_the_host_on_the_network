@@ -9,7 +9,7 @@
 # check for positional parameter $1
 if [ -z "$1" ]
 then
-	echo Usage: 5-is_the_host_on_the_network {IP_ADDRESS}
+	echo "Usage: 5-is_the_host_on_the_network {IP_ADDRESS}"
 else
 	# ping ip address 5 times
 	ping "$1" -c5
