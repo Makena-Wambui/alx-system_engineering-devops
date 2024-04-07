@@ -22,3 +22,9 @@ SPOF - Single Point Of Failure
 -------------------------------
 A non redundant component/part of a system that when faulty/if it fails, causes the entire system to fail.
 Solved by increasing redundancy. 
+
+QPS
+----
+QPS stands for Queries Per Second and is considered the most important metric for describing a server’s capacity/throughput dimension.
+It refers to the amount of server power available to you.
+It is a Measure of search traffic.
