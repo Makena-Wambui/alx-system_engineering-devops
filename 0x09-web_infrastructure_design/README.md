@@ -18,4 +18,7 @@ Consist of the following:
 The frontend application is the web page that shows up on your browser.
 When you interact with the web page by for ex clicking on a button, your browser ocmmunicates with the backend application to retrieve the required information.
 
-
+SPOF - Single Point Of Failure
+-------------------------------
+A non redundant component/part of a system that when faulty/if it fails, causes the entire system to fail.
+Solved by increasing redundancy. 
