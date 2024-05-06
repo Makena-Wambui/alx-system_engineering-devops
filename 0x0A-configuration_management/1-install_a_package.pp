@@ -3,5 +3,6 @@
 # Puppet will install or update Flask to the specified version.
 package { 'flask':
     ensure   => '2.1.0', # pass version to ensure attribute
+    name     => 'flask',
     provider => 'pip3',
 }
