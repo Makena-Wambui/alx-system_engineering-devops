@@ -1,12 +1,12 @@
-# Using Puppet to configure the client configuration file.
-file { '/home/.ssh/config':
-  ensure  => 'file',
-  path    => '/home/.ssh/config',
-  content => file('/etc/puppetlabs/code/environments/production/modules/ssh/templates/ssh_config.erb'),
+# Puppet manifest for seting  up your client SSH configuration file so that you can connect
+# to a server without typing a password.
+
+file_line { 'password_auntheticate':
+    path => '~/.ssh/config',
+    line => 'PasswordAuthentication no', # ensures line is in file specified in path
 }
 
-file { '/home/.ssh':
-  ensure => 'directory',
-  path   => '/home/.ssh',
-
+file_line { 'identity_file':
+    path => '~/.ssh/config',
+    line => 'IdentityFile ~/.ssh/school',
 }
