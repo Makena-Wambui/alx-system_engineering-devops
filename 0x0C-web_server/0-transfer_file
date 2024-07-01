@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# using the Secure Copy Protocol to transmit a local file to a remote server
+
+#$1=path/to/file/being/copied
+#$2=The IP of the server we want to transfer the file to
+#$3=The username scp connects with
+#$4=The path to the SSH private key that scp uses
+
+# if number of arguments passed to the script are less than 4:
+if [ $# -lt 4 ]; then
+	echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+	exit; # stop script execution
+else
+	# Strict host key checking must be disabled when using scp
+	# Use o to pass options to ssh in ssh_config format
+	scp -P 4444 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$1" -i "$4" "$3"@"$2":~/
+fi
