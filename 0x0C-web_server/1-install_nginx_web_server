@@ -6,19 +6,6 @@ sudo apt-get install -y nginx
 # Create a custom HTML file with "Hello World!"
 echo "Hello World!" | sudo tee /var/www/html/index.html
 
-# Configure Nginx to listen on port 80 and serve our custom content
-sudo tee /etc/nginx/sites-available/default <<EOF
-server {
-    listen 80;
-    server_name _;
-
-    location / {
-        root /var/www/html;
-        index index.html;
-    }
-}
-EOF
-
 sudo ufw allow "Nginx HTTP"
 
 # Restart Nginx to apply changes
