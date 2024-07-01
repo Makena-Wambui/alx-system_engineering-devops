@@ -13,5 +13,5 @@ if [ $# -lt 4 ]; then
 else
 	# Strict host key checking must be disabled when using scp
 	# Use o to pass options to ssh in ssh_config format
-	scp -P 4444 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$1" -i "$4" "$3"@"$2":~/
+	scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i "$4" "$1" "$3"@"$2":~/
 fi
