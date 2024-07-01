@@ -19,6 +19,8 @@ server {
 }
 EOF
 
+sudo ufw allow "Nginx HTTP"
+
 # Restart Nginx to apply changes
 sudo systemctl restart nginx
 
