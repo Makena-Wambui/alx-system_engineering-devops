@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Configure your Nginx server so that /redirect_me is redirecting to another page.
+
+# Update package list and install Nginx
+sudo apt-get update
+sudo apt-get install -y nginx
+
+# Create a custom HTML file with "Hello World!"
+echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
+
+sudo ufw allow "Nginx HTTP"
+
+# Define the Nginx configuration file
+NGINX_CONF="/etc/nginx/sites-available/default"
+
+# Use sed to insert the redirect configuration
+# i option -> modify original file directly
+# sed will look for the line server { in the file
+# then append the lines that follow to it.
+sudo sed -i '/server {/a\
+    location /redirect_me {\
+        return 301 https://xaturing.tech;\
+    }' $NGINX_CONF
+
+# Restart Nginx to apply changes
+sudo service nginx restart
