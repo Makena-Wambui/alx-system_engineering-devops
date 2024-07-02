@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Configure your Nginx server to have a custom 404 page that contains the string Ceci n'est pas une page
+# 404 Page Not Found
 
 # Update package list and install Nginx
-sudo apt-get update
+sudo apt-get update -y
 sudo apt-get install -y nginx
 
 # Allow HTTP traffic
@@ -11,8 +11,14 @@ sudo ufw allow 'Nginx HTTP'
 # Create the custom 404 error page
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html
 
-# Define the Nginx configuration file
+# Specify the target URL for redirection
+REDIRECT_URL="https://www.youtube.com/watch?v=QH2-TGUlwu4"
+
+# Path to the Nginx configuration file
 NGINX_CONF="/etc/nginx/sites-available/default"
+
+# Add the redirection configuration using sed
+sudo sed -i "/server {/a \    location \/redirect_me {\n        return 301 $REDIRECT_URL;\n    }" $NGINX_CONF
 
 # Use sed to insert the custom 404 error page configuration
 sudo sed -i '/server {/a \
@@ -21,7 +27,8 @@ sudo sed -i '/server {/a \
         internal;\
     }' $NGINX_CONF
 
+# Test the Nginx configuration
 sudo nginx -t
 
-# Restart Nginx to apply changes
+# Restart Nginx
 sudo service nginx restart
