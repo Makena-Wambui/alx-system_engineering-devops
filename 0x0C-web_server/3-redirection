@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# 301 Permanent Redirection
 
 # Update package list and install Nginx
 sudo apt-get update -y
