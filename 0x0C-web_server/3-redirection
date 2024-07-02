@@ -1,29 +1,15 @@
 #!/usr/bin/env bash
-# 301 Redirection Configuration
+# This script installs nginx on ubuntu server
 
-# Update package list and install Nginx
-sudo apt-get update
 sudo apt-get install -y nginx
 
-# Create a custom HTML file with "Hello World!"
+sudo ufw allow 'Nginx HTTP'
+
 echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
 
-sudo ufw allow "Nginx HTTP"
+line="\\\trewrite ^/redirect_me http://xaturing.tech permanent;"
+sudo sed -i "13i $line" /etc/nginx/sites-available/default
 
-# Define the Nginx configuration file
-NGINX_CONF="/etc/nginx/sites-available/default"
-
-# Use sed to insert the redirect configuration
-# i option -> modify original file directly
-# sed will look for the line server { in the file
-# then append the lines that follow to it.
-sudo sed -i '/server {/a \
-    location /redirect_me {\
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\
-    }' $NGINX_CONF
-
-# Test the Nginx configuration
 sudo nginx -t
 
-# Restart Nginx to apply changes
 sudo service nginx restart
