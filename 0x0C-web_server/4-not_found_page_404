@@ -8,24 +8,23 @@ sudo apt-get install -y nginx
 # Allow HTTP traffic
 sudo ufw allow 'Nginx HTTP'
 
-# Create the custom 404 error page
-echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html
-
-# Specify the target URL for redirection
-REDIRECT_URL="https://www.youtube.com/watch?v=QH2-TGUlwu4"
-
 # Path to the Nginx configuration file
 NGINX_CONF="/etc/nginx/sites-available/default"
 
-# Add the redirection configuration using sed
-sudo sed -i "/server {/a \    location \/redirect_me {\n        return 301 $REDIRECT_URL;\n    }" $NGINX_CONF
+echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
 
-# Use sed to insert the custom 404 error page configuration
-sudo sed -i '/server {/a \
-    error_page 404 /custom_404.html;\
-    location = /custom_404.html {\
-        internal;\
-    }' $NGINX_CONF
+string="server_name _;"
+string+="\n\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;"
+
+sudo sed -i "s@server_name _;@$string@" $NGINX_CONF
+
+# Creating a 404 Custom error page
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+
+mystring="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
+
+
+sudo sed -i "s/listen 80 default_server;/$mystring/" $NGINX_CONF
 
 # Test the Nginx configuration
 sudo nginx -t
