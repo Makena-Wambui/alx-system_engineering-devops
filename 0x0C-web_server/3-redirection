@@ -8,14 +8,15 @@ sudo apt-get install -y nginx
 # Allow HTTP traffic
 sudo ufw allow 'Nginx HTTP'
 
-# Specify the target URL for redirection
-REDIRECT_URL="https://www.youtube.com/watch?v=QH2-TGUlwu4"
-
 # Path to the Nginx configuration file
 NGINX_CONF="/etc/nginx/sites-available/default"
 
-# Add the redirection configuration using sed
-sudo sed -i "/server {/a \    location \/redirect_me {\n        return 301 $REDIRECT_URL;\n    }" $NGINX_CONF
+echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
+
+string="server_name _;"
+string+="\n\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;"
+
+sudo sed -i "s@server_name _;@$string@" $NGINX_CONF
 
 # Test the Nginx configuration
 sudo nginx -t
