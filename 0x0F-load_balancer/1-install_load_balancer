@@ -49,6 +49,3 @@ EOF"
 
 # Restart HAProxy
 sudo service haproxy restart
-
-# Check the status of HAProxy
-sudo service haproxy status
