@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# We are configuring web-02 to be identical to web-01.
+# We use bash scripts to automate our work.
+
+# Update package list and install Nginx
+sudo apt-get update -y
+sudo apt-get install -y nginx
+
+# Allow HTTP traffic
+sudo ufw allow 'Nginx HTTP'
+
+# Path to the Nginx configuration file
+NGINX_CONF="/etc/nginx/sites-available/default"
+
+echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
+
+string="server_name _;"
+string+="\n\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;"
+
+sudo sed -i "s@server_name _;@$string@" $NGINX_CONF
+
+# Creating a 404 Custom error page
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+
+mystring="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
+
+
+sudo sed -i "s/listen 80 default_server;/$mystring/" $NGINX_CONF
+
+# We are placing our webservers behind a load balancer.
+# We add a custom Nginx response header(on both web servers) so as to keep track of which web server is handling our requests
+# The name of the custom HTTP header must be X-Served-By.
+# Its value must be the hostname of the server Nginx is running on
+# We use the Nginx add_header directive to set arbitrary headers in the global nginx.conf configuration file.
+# Then use the HOSTNAME variable to get the name of the machine/server
+
+CONF="/etc/nginx/nginx.conf"
+
+sed -i '15a \\t add_header X-Served-By '"${HOSTNAME}"';' $CONF
+
+# Test the Nginx configuration
+sudo nginx -t
+
+# Restart Nginx
+sudo service nginx restart
