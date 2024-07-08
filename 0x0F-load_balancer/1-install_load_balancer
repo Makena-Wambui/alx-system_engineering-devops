@@ -14,22 +14,9 @@ sudo add-apt-repository -y ppa:vbernat/haproxy-2.4
 sudo apt-get update -y
 
 # Install HAProxy from the added PPA
-sudo apt-get install -y haproxy=2.4.*
+sudo apt-get install -y haproxy=2.4.\*
 
 CONF="/etc/haproxy/haproxy.cfg"
-
-# Check if HAProxy was installed correctly
-if [ ! -f $CONF ]; then
-    echo "HAProxy installation failed or configuration file not found."
-    exit 1
-fi
-
-# Backup the HAProxy configuration file
-sudo cp -a $CONF /etc/haproxy/haproxy.cfg.orig
-
-# Preserve Header Case: The http-request set-header X-Served-By %[req.hdr(X-Served-By)] line in
-# the frontend section ensures that HAProxy will set the header X-Served-By exactly
-# as it is received from the backend servers.
 
 # Configure HAProxy as a load balancer and reverse proxy
 sudo bash -c "cat <<EOF >> $CONF
@@ -37,14 +24,13 @@ sudo bash -c "cat <<EOF >> $CONF
 frontend my_frontend
     bind *:80
     mode http
-    http-request set-header X-Served-By %[req.hdr(X-Served-By)]
     default_backend nginx_backend
 
 backend nginx_backend
     balance roundrobin
     mode http
-    server 499808-web-01 18.235.243.79:80 check
-    server 499808-web-02 34.207.57.119:80 check
+    server 499808-web-01 18.235.243.79:80
+    server 499808-web-02 34.207.57.119:80
 EOF"
 
 # Restart HAProxy
