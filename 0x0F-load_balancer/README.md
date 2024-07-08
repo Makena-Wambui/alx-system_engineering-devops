@@ -92,3 +92,5 @@ The file_line resource adds the X-Served-By header to the Nginx configuration fi
 Restart Nginx:
 
 The exec resource named restart_nginx restarts the Nginx service only if the file_line resource makes a change. The refreshonly => true parameter ensures this command runs only when notified.
+
+NOTE TO SELF: MY ORIGINAL SCRIPTS WERE GOOD. DO NOT LET AI CONFUSE YOU.
