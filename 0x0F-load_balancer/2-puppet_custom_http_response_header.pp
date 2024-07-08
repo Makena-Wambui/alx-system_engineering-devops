@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-# task advance with pupppet
+# Adding a custom Header using the exec resource
 
 exec { 'add_http_header_with_puppet':
   command  => 'sudo apt-get update -y;
