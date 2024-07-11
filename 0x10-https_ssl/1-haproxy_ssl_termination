@@ -42,7 +42,6 @@ frontend my_frontend
 
 backend nginx_backend
     balance roundrobin
-    mode http
     server 499808-web-01 18.235.243.79:80 check
     server 499808-web-02 34.207.57.119:80 check
                                                      
