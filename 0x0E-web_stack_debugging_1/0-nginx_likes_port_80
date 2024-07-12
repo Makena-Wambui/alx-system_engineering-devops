@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-# Nginx listens on port 80
-sudo sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
+# delete existing symlink and create new one btwn the two files
+sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 sudo service nginx restart
