@@ -67,4 +67,4 @@ echo "Nginx configurations updated to run as nginx user and listen on port 8080"
 nginx -t
 
 # Restart nginx to apply changes
-service restart nginx
+sudo -u nginx service nginx restart
