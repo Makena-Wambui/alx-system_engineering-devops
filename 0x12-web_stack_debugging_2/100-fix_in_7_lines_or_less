@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# This script aims to achieve what task 1 did but with fewer lines(7 or less)
+
+sed -i 's/^user .*/user nginx;/g' /etc/nginx/nginx.conf
+sed -i 's/listen\s\+80;/listen 8080;/' /etc/nginx/sites-available/default
+sudo nginx -t
+sudo -u nginx service nginx restart
