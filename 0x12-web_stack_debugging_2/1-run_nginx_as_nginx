@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+# Running nginx web server as non root user nginx.
+#+ The root user is a superuser that can do anything on a Unix machine;
+#+ the top administrator.
+
+# You must do everything you can to prevent an attacker from login in as root.
+# It is good practice not to run your web servers as root.
+#+ which is a default for most configurations.
+#+ and instead run the nginx process as the less privilleged nginx user.
+# Hence if a hacker finds a security issue that allows them to break in to your server,
+# the impact is limited to the permissions of the nginx user.
+
+# nginx must be listening on all active IPs on port 8080.
+
+# Lets ensure script is being run with sudo privilleges(as root)
+
+if [ "$EUID" -ne 0 ]; then
+	echo "Please run script as root"
+	exit 1
+fi
+
+# confirm that nginx user does not already exist
+#+ before creating it..
+
+if ! id -u nginx > /dev/null 2>&1; then
+	echo "nginx user does not exist. Create it."
+	# r option is for creating system account
+	# s option specifies user's login shell
+	# nginx is created with no login permissions.
+	useradd -r -s /sbin/nologin nginx
+	echo "nginx user created"
+else
+	echo "nginx user already exists."
+fi
+
+# Backup the current nginx configuration files
+NGINX="/etc/nginx/sites-available/default"
+NGINX_CONF="/etc/nginx/nginx.conf"
+
+if test -f "$NGINX_CONF"; then
+	echo "Nginx conf file exists"
+	echo "Lets back it up"
+	cp "$NGINX_CONF" "${NGINX_CONF}".bak
+	echo "Backup of nginx configuration created at ${NGINX_CONF}.bak"
+else
+	echo "Nginx configuration file not found at $NGINX_CONF"
+	exit 1
+fi
+
+if test -f "$NGINX"; then
+	echo "Nginx conf file exists"
+	echo "Lets back it up"
+	cp "$NGINX" "${NGINX}".bak
+	echo "Backup of nginx configuration created at ${NGINX}.bak"
+else
+	echo "Nginx configuration file not found at $NGINX"
+	exit 1
+fi
+
+# Modify nginx configuration to run as nginx user and listen on port 8080
+sed -i 's/^user .*/user nginx;/g' "$NGINX_CONF"
+sed -i 's/listen\s\+80;/listen 8080;/' "$NGINX"
+
+echo "Nginx configurations updated to run as nginx user and listen on port 8080"
+
+# Check for errors
+nginx -t
+
+# Restart nginx to apply changes
+service restart nginx
