@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# root user on linux is the superuser: Meaning this user can
+#+ do anything it wants.
+#+ it is preferable to run as a privileged user:
+#+	meaning that the user also has the ability to perform tasks
+#+	that the root user can do by using a specific command.
+
+# write a Bash script that accepts one argument.
+#+ the script should run the whoami command under the user passed as an argument.
+
+sudo -u "${1}" whoami
