@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Installs the ufw firewall on web-01
+#+ Configure ufw so it blocks all incoming traffic
+#+ Except port 22, 443 and 80.
+
+sudo apt-get update
+
+sudo apt-get upgrade
+
+sudo apt install ufw
+
+sudo ufw enable
+
+# More specific configurations are on top while the general configurations are lower 0n the list
+sudo ufw allow 22/tcp
+
+sudo ufw allow 443/tcp
+
+sudo ufw allow 80/tcp
+
+sudo ufw default deny incoming
