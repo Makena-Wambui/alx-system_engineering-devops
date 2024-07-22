@@ -1,16 +1,24 @@
-#
 # rules.before
 #
-# Rules that should be run before the ufw command line added rules. Custom
+# Rules that should be run before ufw command line added rules. Custom
 # rules should be added to one of these chains:
 #   ufw-before-input
 #   ufw-before-output
 #   ufw-before-forward
-#
 
+# NAT table rules
 *nat
 :PREROUTING ACCEPT [0:0]
--A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
+:POSTROUTING ACCEPT [0:0]
+
+# Forward traffic from port 8080 to port 80.
+-A PREROUTING -p tcp --dport 8080 -j DNAT --to-destination :80
+
+# Don’t masquerade local traffic.
+#-A POSTROUTING -s 192.168.1.0/24 -j MASQUERADE
+
+# don't delete the 'COMMIT' line or these rules won't be processed
+COMMIT
 
 # Don't delete these required lines, otherwise there will be errors
 *filter
@@ -18,8 +26,12 @@
 :ufw-before-output - [0:0]
 :ufw-before-forward - [0:0]
 :ufw-not-local - [0:0]
+:ufw-logging-deny - [0:0]
+:ufw-logging-allow - [0:0]
+:ufw-track-input - [0:0]
+:ufw-track-output - [0:0]
+:ufw-track-forward - [0:0]
 # End required lines
-
 
 # allow all on loopback
 -A ufw-before-input -i lo -j ACCEPT
@@ -36,14 +48,12 @@
 
 # ok icmp codes for INPUT
 -A ufw-before-input -p icmp --icmp-type destination-unreachable -j ACCEPT
--A ufw-before-input -p icmp --icmp-type source-quench -j ACCEPT
 -A ufw-before-input -p icmp --icmp-type time-exceeded -j ACCEPT
 -A ufw-before-input -p icmp --icmp-type parameter-problem -j ACCEPT
 -A ufw-before-input -p icmp --icmp-type echo-request -j ACCEPT
 
 # ok icmp code for FORWARD
 -A ufw-before-forward -p icmp --icmp-type destination-unreachable -j ACCEPT
--A ufw-before-forward -p icmp --icmp-type source-quench -j ACCEPT
 -A ufw-before-forward -p icmp --icmp-type time-exceeded -j ACCEPT
 -A ufw-before-forward -p icmp --icmp-type parameter-problem -j ACCEPT
 -A ufw-before-forward -p icmp --icmp-type echo-request -j ACCEPT
