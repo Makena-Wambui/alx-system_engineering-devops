@@ -12,12 +12,6 @@
 
 # nginx must be listening on all active IPs on port 8080.
 
-# Lets ensure script is being run with sudo privilleges(as root)
-
-if [ "$EUID" -ne 0 ]; then
-	echo "Please run script as root"
-	exit 1
-fi
 
 # confirm that nginx user does not already exist
 #+ before creating it..
@@ -56,6 +50,8 @@ else
 	echo "Nginx configuration file not found at $NGINX"
 	exit 1
 fi
+
+pkill apache2
 
 # Modify nginx configuration to run as nginx user and listen on port 8080
 sed -i 's/^user .*/user nginx;/g' "$NGINX_CONF"
