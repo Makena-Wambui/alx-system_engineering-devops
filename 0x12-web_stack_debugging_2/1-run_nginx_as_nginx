@@ -1,31 +1,10 @@
 #!/usr/bin/env bash
-# Running nginx web server as non root user nginx.
-#+ The root user is a superuser that can do anything on a Unix machine;
-#+ the top administrator.
+# Run Nginx as nginx user
 
-# You must do everything you can to prevent an attacker from login in as root.
-# It is good practice not to run your web servers as root.
-#+ which is a default for most configurations.
-#+ and instead run the nginx process as the less privilleged nginx user.
-# Hence if a hacker finds a security issue that allows them to break in to your server,
-# the impact is limited to the permissions of the nginx user.
+sudo sed -i 's/80/8080/g' /etc/nginx/sites-enabled/default
 
-# nginx must be listening on all active IPs on port 8080.
-
-NGINX="/etc/nginx/sites-available/default"
-NGINX_CONF="/etc/nginx/nginx.conf"
-
-chmod 644 $NGINX_CONF
+chmod 777 /etc/nginx/nginx.conf
 
 pkill apache2
 
-# Modify nginx configuration to run as nginx user and listen on port 8080
-sed -i 's/^user .*/user nginx;/g' "$NGINX_CONF"
-sed -i 's/listen\s\+80;/listen 8080;/' "$NGINX"
-
-
-# Check for errors
-nginx -t
-
-# Restart nginx to apply changes
 sudo -u nginx service nginx restart
