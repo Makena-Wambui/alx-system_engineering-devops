@@ -119,3 +119,15 @@ Configure your source MySQL instance to listen for connections on an ip address 
 server-id directive:
 Defines an identifier that MySQL uses internally to distinguish servers in a replication setup.
 Every server in a replication env: source + all its replicas must have their own unique server-id value.
+
+log_bin: base name and the location of mysql binary log file.
+        When commented out, then binary logging is disabled.
+
+        Replica server must read the source's binary log file to know when and how to replicate source's data
+        Uncomment or add this line to enable binary logging on the source.
+
+binlog_do_db: its value is the name of the database we want to replicate.
+                If you want to replicate more than one db, you can add another binlog_do_db directive for every database you want to add.
+
+You can also specify which databases MySql should not replicate thro the binlog_ignore_db directive for each one.
+                binlog_ignore_db          = db_to_ignore
