@@ -51,6 +51,9 @@ else
 	exit 1
 fi
 
+chmod 777 $NGINX_CONF
+chmod 777 $NGINX
+
 pkill apache2
 
 # Modify nginx configuration to run as nginx user and listen on port 8080
