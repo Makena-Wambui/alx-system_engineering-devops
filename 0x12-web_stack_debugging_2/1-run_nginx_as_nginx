@@ -23,7 +23,6 @@ pkill apache2
 sed -i 's/^user .*/user nginx;/g' "$NGINX_CONF"
 sed -i 's/listen\s\+80;/listen 8080;/' "$NGINX"
 
-echo "Nginx configurations updated to run as nginx user and listen on port 8080"
 
 # Check for errors
 nginx -t
