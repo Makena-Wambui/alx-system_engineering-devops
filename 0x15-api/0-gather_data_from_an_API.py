@@ -18,8 +18,8 @@ employee TODO list progress in this exact format:
         TASK_TITLE (with 1 tabulation and 1 space before the TASK_TITLE)
 """
 
-import sys
 import requests
+import sys
 
 base_url = 'https://jsonplaceholder.typicode.com/'
 
