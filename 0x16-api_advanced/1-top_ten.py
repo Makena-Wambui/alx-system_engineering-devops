@@ -25,7 +25,8 @@ def top_ten(subreddit):
             params = {'limit': 10}
             headers = {'User-Agent': 'MyRedditApp/0.1 by Forward-Age6992'}
 
-            response = requests.get(url, params=params, headers=headers)
+            response = requests.get(url, params=params,
+                                    headers=headers, allow_redirects=False)
             response.raise_for_status()
 
             response = response.json()
@@ -36,10 +37,11 @@ def top_ten(subreddit):
                 for post in posts_list:
                     print(post['data']['title'])
             else:
-                print(None)
+                print('None')
 
         except requests.exceptions.RequestException:
-            print(None)
+            print('None')
+            return
 
     else:
-        print(None)
+        print('None')
