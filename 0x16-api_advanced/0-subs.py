@@ -24,24 +24,24 @@ def number_of_subscribers(subreddit):
     url = f'https://www.reddit.com/r/{subreddit}/about.json'
     headers = {'User-Agent': 'Mozilla/5.0'}
 
-    if subreddit:
-        try:
-            response = requests.get(url, headers=headers)
+    if subreddit is None or type(subreddit) is not str:
+        return 0
 
-            response.raise_for_status()
+    try:
+        response = requests.get(url, headers=headers)
 
-            response = response.json()
+        response.raise_for_status()
 
-            data = response.get('data')
-            if data is None:
-                return 0
+        response = response.json()
 
-            # if subscribers key does not exist, return 0
-            subs = data.get('subscribers', 0)
-
-            return subs
-
-        except Exception:
+        data = response.get('data')
+        if data is None:
             return 0
-    else:
+
+        # if subscribers key does not exist, return 0
+        subs = data.get('subscribers', 0)
+
+        return subs
+
+    except Exception:
         return 0
