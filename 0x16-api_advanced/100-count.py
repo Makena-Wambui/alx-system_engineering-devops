@@ -24,8 +24,8 @@ Write a recursive function:
            then you need to ensure that the final count sums these duplicates.
 """
 
-import requests
 from collections import defaultdict as dd
+import requests
 
 
 def count_words(subreddit, word_list, after=None, counts=dd(int)):
@@ -90,4 +90,3 @@ def count_words(subreddit, word_list, after=None, counts=dd(int)):
             return None
     else:
         return None
-
