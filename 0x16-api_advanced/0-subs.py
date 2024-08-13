@@ -11,7 +11,6 @@ ensure you’re setting a custom User-Agent.
 """
 
 import requests
-import sys
 
 
 def number_of_subscribers(subreddit):
@@ -25,22 +24,24 @@ def number_of_subscribers(subreddit):
     url = f'https://www.reddit.com/r/{subreddit}/about.json'
     headers = {'User-Agent': 'Mozilla/5.0'}
 
-    try:
-        response = requests.get(url, headers=headers)
+    if subreddit:
+        try:
+            response = requests.get(url, headers=headers)
 
-        # if request was unsuccessful:
-        if response.status_code != 200:
+            response.raise_for_status()
+
+            response = response.json()
+
+            data = response.get('data')
+            if data is None:
+                return 0
+
+            # if subscribers key does not exist, return 0
+            subs = data.get('subscribers', 0)
+
+            return subs
+
+        except Exception:
             return 0
-
-        response = response.json()
-
-        data = response.get('data')
-        if data is None:
-            return 0
-
-        # if subscribers key does not exist, return 0
-        subs = data.get('subscribers', 0)
-
-        return subs
-    except Exception:
+    else:
         return 0
