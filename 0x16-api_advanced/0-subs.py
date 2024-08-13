@@ -20,28 +20,11 @@ def number_of_subscribers(subreddit):
     If invalid subreddit, return 0.
 
     """
-    # url = 'https://www.reddit.com/r/gaming/about'
-    url = f'https://www.reddit.com/r/{subreddit}/about.json'
-    headers = {'User-Agent': 'Mozilla/5.0'}
-
-    if subreddit is None or type(subreddit) is not str:
-        return 0
-
     try:
-        response = requests.get(url, headers=headers)
-
-        response.raise_for_status()
-
-        response = response.json()
-
-        data = response.get('data')
-        if data is None:
-            return 0
-
-        # if subscribers key does not exist, return 0
-        subs = data.get('subscribers', 0)
-
-        return subs
-
+        base_url = 'https://www.reddit.com/r/'
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        r = requests.get(
+            base_url + '{}/about.json'.format(subreddit), headers=headers)
+        return r.json().get('data').get('subscribers')
     except Exception:
         return 0
