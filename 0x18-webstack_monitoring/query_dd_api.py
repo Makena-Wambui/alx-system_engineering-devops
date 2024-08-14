@@ -11,9 +11,9 @@ Before making API calls, you'll need your Datadog API key and application key
 
 from datadog import initialize, api
 
-APPLICATION_KEY = '5a56feb55df0be2890fb91eeb6387899b5ddf9b7'
+APPLICATION_KEY = ''
 
-API_KEY = '9a1e0f82b12b1a020ed0870bd5b6368c'
+API_KEY = ''
 
 options = {
         'api_key': API_KEY,
