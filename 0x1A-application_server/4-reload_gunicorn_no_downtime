@@ -1,18 +1,22 @@
 #!/usr/bin/env bash
 # a simple Bash script to reload Gunicorn in a graceful way.
 
-# Path to the Gunicorn PID file
-GUNICORN_PID="/path/to/gunicorn.pid"
+# Define the Gunicorn service name
+SERVICE_NAME="gunicorn"
 
-# Check if the PID file exists
-if [ -f "$GUNICORN_PID" ]; then
-    # Read the PID from the file
-    PID=$(cat "$GUNICORN_PID")
+# Function to reload Gunicorn gracefully
+reload_gunicorn() {
+    # Get the PID of the Gunicorn master process
+    PID=$(pgrep -f "$SERVICE_NAME")
 
-    # Send the SIGHUP signal to the Gunicorn master process
-    kill -HUP "$PID"
+    if [ -n "$PID" ]; then
+        # Send the HUP signal to the master process
+        kill -HUP "$PID"
 
-    echo "Gunicorn gracefully reloaded."
-else
-    echo "Gunicorn PID file not found."
-fi
+        # Optionally, you can check the status after reload
+        sleep 10
+    fi
+}
+
+# Reload Gunicorn
+reload_gunicorn
