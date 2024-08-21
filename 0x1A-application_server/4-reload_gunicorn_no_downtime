@@ -1,10 +1,4 @@
 #!/usr/bin/env bash
 # a simple Bash script to reload Gunicorn in a graceful way.
 
-# Get the PID of the Gunicorn master process
-GUNICORN_PID=$(pgrep -x "gunicorn")
-
-if [ -n "$GUNICORN_PID" ]; then
-    # Send the HUP signal to the master process to reload the configuration and gracefully restart workers
-    kill -HUP "$GUNICORN_PID"
-fi
+sudo systemctl status gunicorn | grep -oE 'Main PID: [0-9]+' | cut -d ' ' -f3 | xargs kill -HUP
