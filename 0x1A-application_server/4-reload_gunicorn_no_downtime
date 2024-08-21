@@ -1,19 +1,20 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# a simple Bash script to reload Gunicorn in a graceful way.
 
 # Define the Gunicorn service name
 SERVICE_NAME="gunicorn"
 
 # Function to reload Gunicorn gracefully
 reload_gunicorn() {
-    # Check if the service is running
-    if systemctl is-active --quiet "$SERVICE_NAME"; then
-        echo "Reloading Gunicorn service..."
+    # Get the PID of the Gunicorn master process
+    PID=$(pgrep -f "$SERVICE_NAME")
 
-        # Reload the service (graceful restart)
-        systemctl restart "$SERVICE_NAME"
+    if [ -n "$PID" ]; then
+        # Send the HUP signal to the master process
+        kill -HUP "$PID"
 
         # Optionally, you can check the status after reload
-        echo "Waiting for Gunicorn to reload..."
         sleep 10
 
         echo "Graceful reload complete."
