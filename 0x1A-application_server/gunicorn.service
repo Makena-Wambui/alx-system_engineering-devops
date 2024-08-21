@@ -6,7 +6,7 @@ After=network.target
 User=ubuntu
 Environment="PATH=/usr/local/bin:/usr/bin:/bin:/home/ubuntu/.local/bin/"
 WorkingDirectory=/home/ubuntu/AirBnB_clone_v4
-EnvironmentFile=/home/ubuntu/AirBnB_clone_v4/.env
+# EnvironmentFile=/home/ubuntu/AirBnB_clone_v4/.env
 ExecStart=/home/ubuntu/.local/bin/gunicorn --workers 3 --bind 0.0.0.0:5003 web_dynamic.2-hbnb:app
 Restart=always
 StandardOutput=append:/tmp/airbnb-access.log
@@ -15,3 +15,4 @@ SyslogIdentifier=gunicorn
 
 [Install]
 WantedBy=multi-user.target
+
